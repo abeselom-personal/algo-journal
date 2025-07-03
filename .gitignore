@@ -1,1 +1,46 @@
 .DS_Store
+# .gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (if using node)
+node_modules/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Build folders
+dist/
+build/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# VSCode settings
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Backup files
+*.bak
+*.tmp
+
+# Compiled binaries
+*.exe
+*.out
+*.o
+
+# Coverage reports
+coverage/
+
+# Secrets or sensitive data
+secrets.json
