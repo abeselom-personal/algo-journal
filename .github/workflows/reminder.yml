@@ -1,0 +1,42 @@
+
+# .github/workflows/reminder.yml
+name: Daily Reminder via Telegram & Email
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # 11 AM Ethiopia time
+  workflow_dispatch:
+
+jobs:
+  telegram_and_email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Reminder
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="🔔 Reminder: Push at least one problem to your algo journal today!"
+
+      - name: Send Email Reminder
+        env:
+          EMAIL_PASS: ${{ secrets.GMAIL_PASSKEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_ADDRESS }}
+        run: |
+          sudo apt update && sudo apt install -y msmtp
+          echo "defaults
+          auth on
+          tls on
+          tls_trust_file /etc/ssl/certs/ca-certificates.crt
+          logfile ~/.msmtp.log
+
+          account gmail
+          host smtp.gmail.com
+          port 587
+          from ${EMAIL_USER}
+          user ${EMAIL_USER}
+          password ${EMAIL_PASS}
+          account default : gmail" > ~/.msmtprc
+          
+          chmod 600 ~/.msmtprc
+          
+          echo -e "Subject: Daily Algo Reminder\n\nDon't forget to commit your problem today!" | msmtp "${EMAIL_USER}"
