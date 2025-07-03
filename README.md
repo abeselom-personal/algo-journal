@@ -1,4 +1,3 @@
-```md
 # Algo Journal Template
 
 Track your daily algorithm practice by pushing solutions to GitHub with automated reminders via Telegram and Email.
