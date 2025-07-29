@@ -14,7 +14,6 @@ func longestPalindrome(s string) string {
 	}
 	expand := func(left, right int) string {
 		for left >= 0 && right < len(s) && s[left] == s[right] {
-
 			left--
 			right++
 		}
